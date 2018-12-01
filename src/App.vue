@@ -1,28 +1,54 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TicketsList :tickets="tickets"></TicketsList>
+    <input type="text" v-model="newTicket.content"/>
+    <input type="radio" v-model="newTicket.type" value="1" />
+    <input type="radio" v-model="newTicket.type" value="2" />
+    <input type="radio" v-model="newTicket.type" value="3" />
+    <button @click="createTicket"> create ticket</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { db } from '@/firebase.js'
+import { mapGetters, mapActions, mapState } from 'vuex'
+
+import TicketsList from '@/components/tickets/List'
+
+const usersRef = db.collection('users')
+const ticketsRef = db.collection('tickets')
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    TicketsList
+  },
+  data: function() {
+    return {
+      newTicket: {
+        content: '',
+        type: null
+      }
+    }
+  },
+  methods: {
+    createTicket: function() {
+    }
+  },
+  created: function () {
+    this.$store.dispatch('user/setUsersRef', usersRef)
+    this.$store.dispatch('ticket/setTicketsRef', ticketsRef)
+  },
+  computed: {
+    ...mapGetters('user', {
+      users: 'getUsers'
+    }),
+    ...mapGetters('ticket', {
+      tickets: 'getTickets'
+    })
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
 </style>

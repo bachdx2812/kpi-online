@@ -1,29 +1,41 @@
-# kpi-online
+# KPI-online
 
-## Project setup
-```
-yarn install
-```
+====================================
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+KPTはオンラインでやりましょう！
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+====================================
 
-### Run your tests
-```
-yarn run test
-```
+要件定義:
+------------------------------------
++ [ ] chouseisanみたいな簡単な新しいボード作れるようにするか？
++ [ ] チケット作成できる
++ [ ] チケット移動できる
++ [ ] リアルタイム
+  - [ ] 新メンバー入ったらお知らせ
+  - [ ] 新しいチケット作成されたらお知らせ
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-### Lints and fixes files
-```
-yarn run lint
-```
+技術
+------------------------------------
++ [ ] VueJs + Vuex as Frontend
++ [ ] Firebase as DB / Backend
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+開発タスク
+------------------------------------
++ [ ] Firebaseインストールとconfig
++ [ ] FirebaseでDBを作成
++ [ ] Firebaseからデータを取り込める
++ [ ] チケットを作成・保存できる
++ [ ] ボードを作成してからURL発行
++ [ ] 発行されたボードから正しくボードのデーターを取得できる
++ [ ] ..
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+その他の追加開発
+------------------------------------
++ [ ] アカウント登録
++ [ ] チーム登録
++ [ ] チームボード管理
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
