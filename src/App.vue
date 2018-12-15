@@ -16,7 +16,8 @@ export default {
   name: 'app',
   methods: {
     generateAndGoToBoard: function() {
-      // TODO : create new board and inject id into route
+      // TODO: make confirm and loading screen/modal
+
       let self = this;
       boardsRef.add({
         title: 'KPT_20181213'

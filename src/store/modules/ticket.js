@@ -11,8 +11,8 @@ const actions = {
 }
 
 const getters = {
-  getTickets: (state) => {
-    return state.tickets
+  getTicketsByBoardId: (state) => (boardId) => {
+    return state.tickets.filter(ticket => ticket.boardId === boardId)
   }
 }
 

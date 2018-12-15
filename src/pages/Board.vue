@@ -28,15 +28,19 @@ export default {
     return {
       newTicket: {
         content: '',
-        type: null
+        type: null,
+        boardId: this.$route.params.id
       }
     }
   },
   methods: {
     createTicket: function() {
+      ticketsRef.add(this.newTicket)
     }
   },
   created: function () {
+    this.boardId = this.$route.params.id
+
     this.$store.dispatch('user/setUsersRef', usersRef)
     this.$store.dispatch('ticket/setTicketsRef', ticketsRef)
   },
@@ -44,9 +48,12 @@ export default {
     ...mapGetters('user', {
       users: 'getUsers'
     }),
-    ...mapGetters('ticket', {
-      tickets: 'getTickets'
-    })
+//    ...mapGetters('ticket', {
+//      tickets: `getTicketsByBoardId(${this.$route.params.id})`
+//    })
+    tickets: function() {
+      return this.$store.getters['ticket/getTicketsByBoardId'](this.$route.params.id)
+    }
   }
 }
 
