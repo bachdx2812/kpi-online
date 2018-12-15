@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{ $route.params.id }}</h1>
     <TicketsList :tickets="tickets"></TicketsList>
     <input type="text" v-model="newTicket.content"/>
     <input type="radio" v-model="newTicket.type" value="1" />
