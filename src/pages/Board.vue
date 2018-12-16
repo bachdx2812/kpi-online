@@ -2,6 +2,8 @@
   <div>
     <h1>{{ $route.params.id }}</h1>
     <TicketsList :tickets="tickets"></TicketsList>
+    <UsersList :users="users"></UsersList>
+
     <input type="text" v-model="newTicket.content"/>
     <input type="radio" v-model="newTicket.type" value="1" />
     <input type="radio" v-model="newTicket.type" value="2" />
@@ -16,20 +18,25 @@ import { db } from '@/firebase.js'
 import { mapGetters, mapActions, mapState } from 'vuex'
 
 import TicketsList from '@/components/tickets/List'
+import UsersList from '@/components/users/List'
 
 const usersRef = db.collection('users')
 const ticketsRef = db.collection('tickets')
 
 export default {
   components: {
-    TicketsList
+    TicketsList,
+    UsersList
+  },
+  created: function() {
+    this.boardId = this.$route.params.id;
   },
   data: function() {
     return {
       newTicket: {
         content: '',
         type: null,
-        boardId: this.$route.params.id
+        boardId: this.boardId
       }
     }
   },
@@ -48,15 +55,10 @@ export default {
     ...mapGetters('user', {
       users: 'getUsers'
     }),
-//    ...mapGetters('ticket', {
-//      tickets: `getTicketsByBoardId(${this.$route.params.id})`
-//    })
     tickets: function() {
-      return this.$store.getters['ticket/getTicketsByBoardId'](this.$route.params.id)
+      return this.$store.getters['ticket/getTicketsByBoardId'](this.boardId)
     }
   }
 }
 
-
 </script>
-
