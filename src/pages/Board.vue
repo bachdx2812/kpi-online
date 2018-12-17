@@ -1,14 +1,10 @@
 <template>
   <div>
     <h1>{{ $route.params.id }}</h1>
-    <TicketsList :tickets="tickets"></TicketsList>
+    <UserLogin></UserLogin>
     <UsersList :users="users"></UsersList>
-
-    <input type="text" v-model="newTicket.content"/>
-    <input type="radio" v-model="newTicket.type" value="1" />
-    <input type="radio" v-model="newTicket.type" value="2" />
-    <input type="radio" v-model="newTicket.type" value="3" />
-    <button @click="createTicket"> create ticket</button>
+    <TicketsList :tickets="tickets"></TicketsList>
+    <TicketCreate :board-id="boardId"></TicketCreate>
   </div>
 </template>
 
@@ -18,6 +14,9 @@ import { db } from '@/firebase.js'
 import { mapGetters, mapActions, mapState } from 'vuex'
 
 import TicketsList from '@/components/tickets/List'
+import TicketCreate from '@/components/tickets/Create'
+
+import UserLogin from '@/components/users/Login'
 import UsersList from '@/components/users/List'
 
 const usersRef = db.collection('users')
@@ -26,24 +25,9 @@ const ticketsRef = db.collection('tickets')
 export default {
   components: {
     TicketsList,
-    UsersList
-  },
-  created: function() {
-    this.boardId = this.$route.params.id;
-  },
-  data: function() {
-    return {
-      newTicket: {
-        content: '',
-        type: null,
-        boardId: this.boardId
-      }
-    }
-  },
-  methods: {
-    createTicket: function() {
-      ticketsRef.add(this.newTicket)
-    }
+    TicketCreate,
+    UsersList,
+    UserLogin
   },
   created: function () {
     this.boardId = this.$route.params.id
@@ -52,6 +36,9 @@ export default {
     this.$store.dispatch('ticket/setTicketsRef', ticketsRef)
   },
   computed: {
+    ...mapState('user', {
+      currentUser: 'currentUser'
+    }),
     ...mapGetters('user', {
       users: 'getUsers'
     }),

@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="user in users"> {{ user.name }}</li>
-    </ul>
+  <div class="well">
+    <div v-for="user in users">{{ user.name }}</div>
   </div>
 </template>
 

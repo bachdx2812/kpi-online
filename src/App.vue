@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <router-link to="/">Home</router-link> |
     <button @click="generateAndGoToBoard">create new board</button>
 
@@ -30,6 +30,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

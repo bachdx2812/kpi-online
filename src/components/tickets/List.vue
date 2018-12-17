@@ -1,37 +1,16 @@
 <template>
-  <div class="content">
-    <div class="c-fluxopesquisa-board">
-      <div class="c-fluxopesquisa-columns">
-
-        <div v-for="type in ticketTypes" :key="type.type" class="c-fluxopesquisa-column">
-          <div class="c-fluxopesquisa-column__header">
-            <h4 class="c-fluxopesquisa-column__header-title">
-              <span>{{ type.title }} </span>
-              <span class="c-fluxopesquisa-column__header-counter">5</span>
-            </h4>
-          </div>
-          <div class="c-fluxopesquisa-column__cards">
-
-            <div v-for="ticket in filteredTickets(type.value)" :key="ticket.key" class="c-fluxopesquisa-card">
-              <div class="c-fluxopesquisa-card__responsible"></div>
-
-              <div class="c-fluxopesquisa-card__content">
-                <div class="c-fluxopesquisa-card__title">
-                  <span class="c-fluxopesquisa-card__status c-fluxopesquisa-card__status--open">Aberto</span>
-                </div>
-                <div class="c-fluxopesquisa-card__info">
-                  <span>{{ ticket.content }} </span>
-                </div>
-                <div class="c-fluxopesquisa-card__dates">
-                  <div class="c-fluxopesquisa-card__date">
-                    <i class="fa fa-calendar-o"></i> 10/10/16
-                  </div>
-                </div>
-              </div>
+  <div class="row">
+    <div class="col col-lg-4" v-for="type in ticketTypes" :key="type.type">
+      <div class="card">
+        <div class="card-header">{{ type.title }}</div>
+        <div class="card-body">
+          <div v-for="ticket in filteredTickets(type.value)" class="card" :class="columnClass(type.value)">
+            <div class="card-body">
+              <p class="card-title">{{ ticket.username }}</p>
+              <p class="card-text">{{ ticket.content }}</p>
             </div>
-         </div>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -48,15 +27,15 @@ export default {
   created: function() {
     this.ticketTypes = [
       {
-        title: 'Keep',
+        title: 'KEEP',
         value: 1
       },
       {
-        title: 'Problem',
+        title: 'PROBLEM',
         value: 2
       },
       {
-        title: 'Try',
+        title: 'TRY',
         value: 3
       }
     ]
@@ -64,11 +43,22 @@ export default {
   methods: {
     filteredTickets: function(type) {
       return this.tickets.filter(ticket => ticket.type == type)
+    },
+    columnClass: function(type) {
+      switch(type) {
+        case 1:
+          return "bg-success";
+          break;
+        case 2:
+          return "bg-warning";
+          break;
+        case 3:
+          return "bg-info";
+          break;
+        default:
+          break;
+      }
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/components/tickets/list.scss'
-</style>
